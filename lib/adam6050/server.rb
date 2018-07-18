@@ -49,20 +49,24 @@ module ADAM6050
 
     private
 
-    def handle(handler, msg, sender)
+    def handle(handler, msg, sender, &block)
       @session.validate! sender if handler.validate?
 
       next_state, reply = handler.handle msg, @state, @session, sender
-      
-      if next_state != state
-        commit = !block_given? || yield(next_state, @state)
-        return if commit == false
-      end
+
+      return if abort_state_change?(next_state, &block)
 
       sender.reply reply + "\r" if reply
       @state = next_state
     rescue Session::InvalidSender => e
       logger.warn e.message
+    end
+
+    def abort_state_change?(next_state)
+      return true if next_state == @state
+
+      commit = !block_given? || yield(next_state, @state)
+      commit == false
     end
   end
 end
