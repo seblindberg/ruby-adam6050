@@ -12,7 +12,7 @@ begin
     loop do
       sleep 5
       input_channel = rand 0...ADAM6050::State::NUM_INPUTS
-      
+
       server.update do |state|
         value = !ADAM6050::State.input_set?(state, input_channel)
         puts "Setting input #{input_channel} to #{value}"
@@ -20,7 +20,7 @@ begin
       end
     end
   end
-  
+
   server.run do |state|
     puts ADAM6050::State.inspect(state)
   end
