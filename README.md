@@ -1,5 +1,10 @@
 # 🎛 ADAM6050
 
+[![Gem Version](https://badge.fury.io/rb/adam6050.svg)](https://badge.fury.io/rb/vissen-input)
+[![Build Status](https://travis-ci.org/seblindberg/ruby-adam6050.svg?branch=master)](https://travis-ci.org/seblindberg/ruby-adam6050)
+[![Inline docs](http://inch-ci.org/github/seblindberg/ruby-adam6050.svg?branch=master)](http://inch-ci.org/github/seblindberg/ruby-adam6050)
+[![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/adam6050/)
+
 This library implements a server that emulates the functionality of the network connected Advantech ADAM-6050 IO module.
 
 ## Installation
