@@ -5,6 +5,7 @@ require 'bundler/setup'
 require 'adam6050'
 
 server = ADAM6050::Server.new
+server.logger.level = Logger::INFO
 
 begin
   server.run do |state|
