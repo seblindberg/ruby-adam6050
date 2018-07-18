@@ -3,8 +3,6 @@
 require 'logger'
 require 'socket'
 
-require 'ADAM6050/version'
-
 require 'ADAM6050/error'
 require 'ADAM6050/password'
 require 'ADAM6050/session'
