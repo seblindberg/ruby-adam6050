@@ -33,7 +33,6 @@ module ADAM6050
       Socket.udp_server_loop host, port do |msg, sender|
         logger.debug { "#{sender.remote_address.inspect} -> '#{msg.inspect}'" }
         handler = @handlers.find { |h| h.handles? msg } || next
-        logger.debug handler.class
         @state_lock.synchronize do
           handle(handler, msg, sender, &block)
         end
