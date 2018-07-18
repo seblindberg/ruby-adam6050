@@ -119,7 +119,7 @@ module ADAM6050
     private
 
     def session_key(sender)
-      sender.remote_address.to_sockaddr
+      sender.remote_address.ip_address
     end
 
     def monotonic_timestamp
