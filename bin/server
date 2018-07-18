@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'bundler/setup'
+require 'adam6050'
+
+server = ADAM6050::Server.new
+
+begin
+  server.run do |state|
+    puts ADAM6050::State.inspect(state)
+  end
+rescue Interrupt
+  puts 'Exiting...'
+end
