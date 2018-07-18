@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ADAM6050 (0.1.0)
+    adam6050 (0.1.0)
 
 GEM
   remote: https://rubygems.org/
@@ -39,7 +39,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  ADAM6050!
+  adam6050!
   bundler (~> 1.16)
   minitest (~> 5.0)
   rake (~> 10.0)

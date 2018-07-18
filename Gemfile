@@ -4,5 +4,5 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-# Specify your gem's dependencies in ADAM6050.gemspec
+# Specify your gem's dependencies in adam6050.gemspec
 gemspec
