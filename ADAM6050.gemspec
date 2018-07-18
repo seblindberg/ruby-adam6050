@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'adam6050/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'ADAM6050'
+  spec.name          = 'adam6050'
   spec.version       = ADAM6050::VERSION
   spec.authors       = ['Sebastian Lindberg']
   spec.email         = ['seb.lindberg@gmail.com']

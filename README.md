@@ -1,8 +1,6 @@
-# ADAM6050
+# 🎛 ADAM6050
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/ADAM6050`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+This library implements a server that emulates the functionality of the network connected Advantech ADAM-6050 IO module.
 
 ## Installation
 
@@ -18,11 +16,18 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install ADAM6050
+    $ gem install adam6050
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'adam6050'
+
+server = ADAM6050::Server.new
+server.run do |state, prev_state|
+    # React to the new state
+end
+```
 
 ## Development
 
@@ -32,7 +37,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/ADAM6050.
+Bug reports and pull requests are welcome on GitHub at https://github.com/seblindberg/ruby-adam6050.
 
 ## License
 
