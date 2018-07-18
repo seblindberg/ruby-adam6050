@@ -96,7 +96,7 @@ module ADAM6050
       format '%05X', (~state & MASK)
     end
 
-    module_function :initial, :input_set?, :output_set?, :update, :update_all,
-                    :inspect, :to_bin
+    module_function :initial, :input_set?, :set_input, :output_set?, :update, 
+                    :update_all, :inspect, :to_bin
   end
 end
