@@ -12,7 +12,7 @@ This library implements a server that emulates the functionality of the network 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'ADAM6050'
+gem 'adam6050'
 ```
 
 And then execute:
