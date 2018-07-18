@@ -53,10 +53,11 @@ module ADAM6050
       @session.validate! sender if handler.validate?
 
       next_state, reply = handler.handle msg, @state, @session, sender
-
-      commit = !block_given? || yield(next_state, @state)
-
-      return if commit == false
+      
+      if next_state != state
+        commit = !block_given? || yield(next_state, @state)
+        return if commit == false
+      end
 
       sender.reply reply + "\r" if reply
       @state = next_state
