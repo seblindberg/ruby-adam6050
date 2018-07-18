@@ -31,9 +31,9 @@ module ADAM6050
       logger.info "Listening on port #{port}"
 
       Socket.udp_server_loop host, port do |msg, sender|
-        logger.debug { "#{sender.remote_address} -> '#{msg}'" }
+        logger.debug { "#{sender.remote_address.inspect} -> '#{msg.inspect}'" }
         handler = @handlers.find { |h| h.handles? msg } || next
-
+        logger.debug handler.class
         @state_lock.synchronize do
           handle(handler, msg, sender, &block)
         end
@@ -63,7 +63,7 @@ module ADAM6050
     end
 
     def abort_state_change?(next_state)
-      return true if next_state == @state
+      return false if next_state == @state
 
       commit = !block_given? || yield(next_state, @state)
       commit == false
