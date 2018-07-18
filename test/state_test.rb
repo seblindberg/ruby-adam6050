@@ -40,6 +40,19 @@ describe ADAM6050::State do
     end
   end
 
+  describe '.set_input' do
+    it 'writes a 1 to the state' do
+      state = subject.set_input initial, 4, true
+      assert subject.input_set?(state, 4)
+    end
+
+    it 'writes a 0 to the state' do
+      state = subject.set_input initial, 4, true
+      state = subject.set_input state, 4, false
+      refute subject.input_set?(state, 4)
+    end
+  end
+
   describe '.output_set?' do
     it 'returns true if the given output channel is set' do
       state = subject.update initial, 4, 1
