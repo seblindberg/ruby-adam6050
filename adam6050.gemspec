@@ -11,7 +11,8 @@ Gem::Specification.new do |spec|
   spec.email         = ['seb.lindberg@gmail.com']
 
   spec.summary       = 'Server implementation of the ADAM-6050 IO module.'
-  spec.description   = 'Server implementation of the ADAM-6050 IO module.'
+  spec.description   = 'This library implements a server that emulates the ' \
+                       'Advantech ADAM-6050 IO module.'
   spec.homepage      = 'https://github.com/seblindberg/ruby-adam6050'
   spec.license       = 'MIT'
 
