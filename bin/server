@@ -8,9 +8,23 @@ server = ADAM6050::Server.new
 server.logger.level = Logger::INFO
 
 begin
+  worker = Thread.new do
+    loop do
+      sleep 5
+      input_channel = rand 0...ADAM6050::State::NUM_INPUTS
+      
+      server.update do |state|
+        value = !ADAM6050::State.input_set?(state, input_channel)
+        puts "Setting input #{input_channel} to #{value}"
+        ADAM6050::State.set_input state, input_channel, value
+      end
+    end
+  end
+  
   server.run do |state|
     puts ADAM6050::State.inspect(state)
   end
 rescue Interrupt
   puts 'Exiting...'
+  worker.kill
 end
