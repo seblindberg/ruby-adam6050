@@ -38,6 +38,19 @@ module ADAM6050
     end
 
     # @raise [RangeError] if the given channel index exceeds the number of
+    #   available input channels.
+    #
+    # @param  state [Integer] the current state.
+    # @param  input_channel [Integer] the input channel number.
+    # @return [true, false] the state of the specified input.
+    def set_input(state, input_channel, value)
+      raise RangeError if input_channel >= NUM_INPUTS
+
+      mask = (1 << input_channel)
+      value ? state | mask : state & ~mask
+    end
+
+    # @raise [RangeError] if the given channel index exceeds the number of
     #   available output channels.
     #
     # @param  state [Integer] the current state.
