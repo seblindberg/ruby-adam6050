@@ -18,8 +18,12 @@ module ADAM6050
 
       # @param  msg [String] the incomming message.
       # @param  state [Integer] the current state.
+      # @param  session [Session] the current session.
+      # @param  sender [Socket::UDPSource] the UDP client.
       #
-      # @return [Array<Integer, String>] the next state and an optional reply.
+      # @return [Integer] the next state (always unchanged).
+      # @return [String] a reply. The reply is either '>01' or '?' depending on
+      #   if the login attempt was successful or not.
       def handle(msg, state, session, sender)
         return state, '?' unless @password == msg[6..-1].chomp!
 

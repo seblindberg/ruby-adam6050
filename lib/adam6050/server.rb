@@ -15,6 +15,7 @@ module ADAM6050
 
     # @param  password [String] the plain text password to use when validating
     #   new clients.
+    # @param  logger [Logger] the logger to use.
     def initialize(password: nil, logger: Logger.new(STDOUT))
       @session  = Session.new
       @handlers = [
@@ -28,8 +29,17 @@ module ADAM6050
       @logger = logger
     end
 
+    # Starts a new UDP server that listens on the given port. The state is
+    # updated atomically and yielded to an optional block everytime a change is
+    # made. By returning `false` the block can cancel the state update. This
+    # call is blocking.
+    #
+    # @yield [Integer] the updated state.
+    # @yield [Integer] the old state.
+    #
     # @param  host [String] the host to listen on.
     # @param  port [Integer] the UDP port to listen on.
+    # @return [nil]
     def run(host: nil, port: DEFAULT_PORT, &block)
       logger.info "Listening on port #{port}"
 
@@ -40,9 +50,13 @@ module ADAM6050
           handle(handler, msg, sender, &block)
         end
       end
+      nil
     end
 
-    # Updates the state atomicly.
+    # Updates the state atomicly. The current state will be yielded to the given
+    # block and the return value used as the next state.
+    #
+    # @yield [Integer] the current state.
     def update
       @state_lock.synchronize do
         @state = yield @state
@@ -51,6 +65,13 @@ module ADAM6050
 
     private
 
+    # @yield see #abort_state_change?
+    #
+    # @param  handler [Handler] the handler selected to handle the message.
+    # @param  msg [String] the received message.
+    # @param  sender [UDPSource] the UDP client.
+    # @param  block [Proc]
+    # @return [nil]
     def handle(handler, msg, sender, &block)
       @session.validate! sender if handler.validate?
 
@@ -59,12 +80,22 @@ module ADAM6050
       return if abort_state_change?(next_state, &block)
       @state = next_state
 
-      sender.reply reply + "\r" if reply
+      return unless reply
+
+      sender.reply reply + "\r"
+      logger.debug reply
     rescue Session::InvalidSender => e
       sender.reply "?\r"
       logger.warn e.message
     end
 
+    # @yield [Integer] the next state.
+    # @yield [Integer] the current state.
+    #
+    # @param  next_state [Integer] the next state.
+    # @return [true] if the next state differ from the current and the
+    #   (optional) given block returns `false`.
+    # @return [false] otherwise.
     def abort_state_change?(next_state)
       return false if next_state == @state
 

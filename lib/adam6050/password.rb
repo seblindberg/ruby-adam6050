@@ -15,6 +15,7 @@ module ADAM6050
   #   password = Password.new
   #
   #   password == 'anything' # => true
+  #
   class Password
     # Format errors should be raised whenever a plain text password longer than
     # 8 characters is passed. Note that only ascii characters are supported.
@@ -41,6 +42,15 @@ module ADAM6050
 
     private
 
+    # Transforms a plain text password into an 8 character string recognised by
+    # the ADAM-6050. The algorithm, if you can even call it that, used to
+    # perform the transformation was found by trial and error.
+    #
+    # @raise [FormatError] if the plain text password is longer than 8
+    #   characters.
+    #
+    # @param  plain [String] the plain text version of the password.
+    # @return [String] the obfuscated, 8 character password.
     def obfuscate(plain)
       codepoints = plain.codepoints
 

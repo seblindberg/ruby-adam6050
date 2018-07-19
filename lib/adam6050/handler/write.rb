@@ -23,7 +23,8 @@ module ADAM6050
 
       # @param  msg [String] the incomming message.
       # @param  state [Integer] the current state.
-      # @return [Array<Integer, String>] the next state and an optional reply.
+      # @return [Integer] the next state (always unchanged).
+      # @return [String] the reply.
       def handle(msg, state, *)
         channel, value = parse msg
         next_state = if msg[3] == '1'

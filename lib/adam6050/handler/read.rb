@@ -10,7 +10,8 @@ module ADAM6050
       MESSAGE_PREAMBLE = '$016'
 
       # @param  state [Integer] the current state.
-      # @return [Array<Integer, String>] the next state and an optional reply.
+      # @return [Integer] the next state (always unchanged).
+      # @return [String] the reply.
       def handle(_, state, *)
         # From the manual:
         #   The first 2-character portion of the response (exclude the "!"

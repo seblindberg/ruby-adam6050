@@ -3,6 +3,9 @@
 module ADAM6050
   module Handler
     # Allows registed senders to read the IO status.
+    #
+    # I have so far not been able to find any documentation arount this feature.
+    # The meaning of the rely is therefore currently unknown.
     class Status
       include Handler
 
@@ -11,7 +14,8 @@ module ADAM6050
 
       # @param  msg [String] the incomming message.
       # @param  state [Integer] the current state.
-      # @return [Array<Integer, String>] the next state and an optional reply.
+      # @return [Integer] the next state (always unchanged).
+      # @return [String] the reply.
       def handle(msg, state, *)
         reply =
           if msg == MESSAGE_PREAMBLE + "\r"

@@ -32,8 +32,9 @@ module ADAM6050
     # authenticated within the session. This can either be beacuse the sender
     # has not yet logged in, or beacuse an old login has expired.
     class InvalidSender < Error
+      # @param  sender [Socket::UDPSource] the originating sender.
       def initialize(sender)
-        super "Invalid sender: #{sender}"
+        super "#{self.class.name}: #{sender.remote_address.inspect}"
       end
     end
 
@@ -111,27 +112,43 @@ module ADAM6050
     def cleanup!(time: monotonic_timestamp)
       return if time < @next_cleanup
 
-      remove_expired! time, @timeout
+      delete_expired! time, @timeout
 
       @next_cleanup = time + @cleanup_interval
     end
 
     private
 
+    # @param  sender [Socket::UDPSource] the UDP client.
+    # @return [#hash] a unique identifier for the sender.
     def session_key(sender)
       sender.remote_address.ip_address
     end
 
+    # This is slightly faster than calling Time.now since no new object needs to
+    # be allocated.
+    #
+    # @return [Numeric] the current monotonic process time.
     def monotonic_timestamp
       Process.clock_gettime Process::CLOCK_MONOTONIC
     end
 
-    def expired?(sess_time, time, timeout)
+    # @param  last_seen [Numeric] the time when the client was last seen.
+    # @param  time [Numeric] the current time.
+    # @param  timeout [Numeric] the time after which expired clients should be
+    #   deleted.
+    # @return [false] if the time last seen is within the timeout.
+    # @return [true] otherwise.
+    def expired?(last_seen, time, timeout)
       threshold = time - timeout
-      sess_time < threshold
+      last_seen < threshold
     end
 
-    def remove_expired!(time, timeout)
+    # @param  time [Numeric] the current time.
+    # @param  timeout [Numeric] the time after which expired clients should be
+    #   deleted.
+    # @return [Hash] the session hash with expired clients deleted.
+    def delete_expired!(time, timeout)
       @session.delete_if { |_, t| expired? t, time, timeout }
     end
   end
