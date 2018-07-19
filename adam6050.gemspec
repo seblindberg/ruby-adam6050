@@ -11,14 +11,14 @@ Gem::Specification.new do |spec|
   spec.email         = ['seb.lindberg@gmail.com']
 
   spec.summary       = 'Server implementation of the ADAM-6050 IO module.'
-  spec.description   = 'This library implements a server that emulates the ' \ 
-                       'functionality of the network connected Advantech ' \ 
-                       'ADAM-6050 digital IO module. Specifically the UDP ' \ 
-                       'protocol that the unit speaks has been reverse ' \ 
-                       "engineered. Since I don't have an actual device to " \ 
-                       'test with the response messages from the server may ' \ 
-                       'differ from what they should be. It all works well ' \ 
-                       'enough for interfacing with Synology Surveillance ' \ 
+  spec.description   = 'This library implements a server that emulates the ' \
+                       'functionality of the network connected Advantech ' \
+                       'ADAM-6050 digital IO module. Specifically the UDP ' \
+                       'protocol that the unit speaks has been reverse ' \
+                       "engineered. Since I don't have an actual device to " \
+                       'test with the response messages from the server may ' \
+                       'differ from what they should be. It all works well ' \
+                       'enough for interfacing with Synology Surveillance ' \
                        'Station which is the original intent.'
   spec.homepage      = 'https://github.com/seblindberg/ruby-adam6050'
   spec.license       = 'MIT'
