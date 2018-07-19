@@ -5,7 +5,11 @@
 [![Inline docs](http://inch-ci.org/github/seblindberg/ruby-adam6050.svg?branch=master)](http://inch-ci.org/github/seblindberg/ruby-adam6050)
 [![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/gems/adam6050/)
 
-This library implements a server that emulates the functionality of the network connected Advantech ADAM-6050 IO module.
+![Advantech ADAM-6050 IO module](http://downloadt.advantech.com/download/downloadlit.aspx?LIT_ID=1-3150PW)
+
+This library implements a server that emulates the functionality of the network connected Advantech ADAM-6050 digital IO module. Specifically the UDP protocol that the unit speaks has been reverse engineered. Since I don't have an actual device to test with the response messages from the server may differ from what they should be. It all works well enough for interfacing with Synology Surveillance Station which is the original intent.
+
+More information about the module can be found on the Advantech [product page](http://www.advantech.com/products/a67f7853-013a-4b50-9b20-01798c56b090/adam-6050/mod_b009c4b4-4b7c-4736-b16f-241978245e6a) which among other things links to its manual.
 
 ## Installation
 
