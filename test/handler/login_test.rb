@@ -6,8 +6,8 @@ describe ADAM6050::Handler::Login do
   subject             { ADAM6050::Handler::Login }
 
   let(:handler)       { subject.new 'b6TSkfr6' }
-  let(:msg)           { "$01PW0]\tklTYM\t" }
-  let(:msg_invalid)   { "$01PW0\x0E\x0E\x0E\x0E\x0E\x0E\x0E\x0E" }
+  let(:msg)           { "$01PW0]\tklTYM\t\r" }
+  let(:msg_invalid)   { "$01PW0\x0E\x0E\x0E\x0E\x0E\x0E\x0E\x0E\r" }
   let(:addr)          { Addrinfo.ip('localhost') }
   let(:sender)        { Socket::UDPSource.new addr, addr }
   let(:session)       { ADAM6050::Session.new }
@@ -50,10 +50,10 @@ describe ADAM6050::Handler::Login do
       assert session.valid?(sender)
     end
 
-    it 'replies with nothing for an invalid password' do
+    it 'replies with a "?" for an invalid password' do
       _, reply = handler.handle msg_invalid, initial_state, session, sender
 
-      assert_nil reply
+      assert_equal '?', reply
     end
 
     it 'does not validate the sender given an invalid password' do
