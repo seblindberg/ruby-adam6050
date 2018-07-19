@@ -21,7 +21,7 @@ module ADAM6050
       #
       # @return [Array<Integer, String>] the next state and an optional reply.
       def handle(msg, state, session, sender)
-        return state, nil unless @password == msg[6..-1]
+        return state, '?' unless @password == msg[6..-1].chomp!
 
         session.register sender
 

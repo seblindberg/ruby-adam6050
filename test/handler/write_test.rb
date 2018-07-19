@@ -28,12 +28,12 @@ describe ADAM6050::Handler::Write do
 
   describe '#handle' do
     it 'updates the state for a single channel' do
-      state, = handler.handle '#011201', initial_state, nil, nil
+      state, = handler.handle "#011201\r", initial_state, nil, nil
       assert ADAM6050::State.output_set?(state, 2)
     end
 
     it 'updates the state for all channels' do
-      state, = handler.handle '#010012', initial_state, nil, nil
+      state, = handler.handle "#010012\r", initial_state, nil, nil
 
       assert ADAM6050::State.output_set?(state, 1)
       assert ADAM6050::State.output_set?(state, 4)
@@ -45,7 +45,7 @@ describe ADAM6050::Handler::Write do
     end
 
     it 'replies with a ">"' do
-      _, reply = handler.handle '#011201', initial_state, nil, nil
+      _, reply = handler.handle "#011201\r", initial_state, nil, nil
       assert_equal '>', reply
     end
   end

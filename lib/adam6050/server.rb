@@ -10,6 +10,9 @@ module ADAM6050
     # @return [Logger] the logger used by the server.
     attr_reader :logger
 
+    # @return [Integer] the current state.
+    attr_reader :state
+
     # @param  password [String] the plain text password to use when validating
     #   new clients.
     def initialize(password: nil, logger: Logger.new(STDOUT))
@@ -54,10 +57,11 @@ module ADAM6050
       next_state, reply = handler.handle msg, @state, @session, sender
 
       return if abort_state_change?(next_state, &block)
+      @state = next_state
 
       sender.reply reply + "\r" if reply
-      @state = next_state
     rescue Session::InvalidSender => e
+      sender.reply "?\r"
       logger.warn e.message
     end
 
