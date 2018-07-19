@@ -7,6 +7,7 @@ describe ADAM6050::Handler::Read do
 
   let(:handler)       { subject.new }
   let(:initial_state) { ADAM6050::State.initial }
+  let(:msg)           { "$016\r" }
 
   describe '#validate?' do
     it 'returns true' do
@@ -28,17 +29,17 @@ describe ADAM6050::Handler::Read do
 
   describe '#handle' do
     it 'does not alter the state' do
-      state, = handler.handle '$016', initial_state, nil, nil
+      state, = handler.handle msg, initial_state, nil, nil
       assert_equal initial_state, state
     end
 
     it 'replies with the initial state' do
-      _, reply = handler.handle '$016', initial_state, nil, nil
+      _, reply = handler.handle msg, initial_state, nil, nil
       assert_equal '!01003FFFF', reply
     end
 
     it 'replies with the modified state' do
-      _, reply = handler.handle '$016', 0x20000, nil, nil
+      _, reply = handler.handle msg, 0x20000, nil, nil
       assert_equal '!01001FFFF', reply
     end
   end
