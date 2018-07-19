@@ -1,4 +1,4 @@
-# 🎛 ADAM6050
+# ADAM6050
 
 [![Gem Version](https://badge.fury.io/rb/adam6050.svg)](https://badge.fury.io/rb/vissen-input)
 [![Build Status](https://travis-ci.org/seblindberg/ruby-adam6050.svg?branch=master)](https://travis-ci.org/seblindberg/ruby-adam6050)
@@ -37,6 +37,10 @@ server.run do |state, prev_state|
     # React to the new state
 end
 ```
+
+## TODO
+
+-[ ] Improve the reliability of the server tests that involve socket connections. Hard coded delays are no good.
 
 ## Development
 

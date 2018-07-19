@@ -4,7 +4,7 @@ module ADAM6050
   module Handler
     # Allows registed senders to read the IO status.
     #
-    # I have so far not been able to find any documentation arount this feature.
+    # I have so far not been able to find any documentation around this feature.
     # The meaning of the rely is therefore currently unknown.
     class Status
       include Handler

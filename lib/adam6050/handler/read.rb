@@ -3,6 +3,20 @@
 module ADAM6050
   module Handler
     # Allows registed senders to read the state.
+    #
+    # From the manual:
+    #   Name        Read Channel Status
+    #   Description This command requests that the specified ADAM-6000 module
+    #               return the status of its digital input channels.
+    #   Syntax      #01C\r
+    #   Response    !0100(data)(data)(data)(data)\r
+    #               (data) a 2-character hexadecimal value representing the
+    #               values of the digital input module.
+    #
+    # TODO: The manual clearly states that onlyt the status of the input
+    #       channels should be included in the response. There are however
+    #       examples out there that also include the output.
+    #
     class Read
       include Handler
 

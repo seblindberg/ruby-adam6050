@@ -3,6 +3,10 @@
 module ADAM6050
   module Handler
     # Allows senders to login.
+    #
+    # I have so far not been able to find any documentation around this feature.
+    # It is therefore almost certain that the response in case of an incorrect
+    # password is wrong.
     class Login
       include Handler
 
