@@ -2,8 +2,8 @@
 
 require 'test_helper'
 
-describe ADAM6050::Handler::Write do
-  subject { ADAM6050::Handler::Write }
+describe ADAM6050::Service::Write do
+  subject { ADAM6050::Service::Write }
 
   let(:handler)       { subject.new }
   let(:initial_state) { ADAM6050::State.initial }

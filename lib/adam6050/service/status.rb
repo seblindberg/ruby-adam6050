@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
 module ADAM6050
-  module Handler
+  module Service
     # Allows registed senders to read the IO status.
     #
     # I have so far not been able to find any documentation around this feature.
     # The meaning of the rely is therefore currently unknown.
     class Status
-      include Handler
+      include Service
 
-      # @return [String] see Handler::MESSAGE_PREAMBLE.
+      # @return [String] see Service::MESSAGE_PREAMBLE.
       MESSAGE_PREAMBLE = '$01C'
 
       # @param  msg [String] the incomming message.

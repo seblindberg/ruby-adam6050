@@ -2,8 +2,8 @@
 
 require 'test_helper'
 
-describe ADAM6050::Handler::Login do
-  subject             { ADAM6050::Handler::Login }
+describe ADAM6050::Service::Login do
+  subject             { ADAM6050::Service::Login }
 
   let(:handler)       { subject.new 'b6TSkfr6' }
   let(:msg)           { "$01PW0]\tklTYM\t\r" }

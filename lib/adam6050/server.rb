@@ -2,7 +2,7 @@
 
 module ADAM6050
   # The server listens to a speciefied UDP port and delegates incomming messages
-  # to the different handlers.
+  # to the different services.
   class Server
     # @return [Integer] the dafault port of the UDP server.
     DEFAULT_PORT = 1025
@@ -18,11 +18,11 @@ module ADAM6050
     # @param  logger [Logger] the logger to use.
     def initialize(password: nil, logger: Logger.new(STDOUT))
       @session  = Session.new
-      @handlers = [
-        Handler::Login.new(password),
-        Handler::Status.new,
-        Handler::Read.new,
-        Handler::Write.new
+      @services = [
+        Service::Login.new(password),
+        Service::Status.new,
+        Service::Read.new,
+        Service::Write.new
       ]
       @state = State.initial
       @state_lock = Mutex.new
@@ -45,9 +45,9 @@ module ADAM6050
 
       Socket.udp_server_loop host, port do |msg, sender|
         logger.debug { "#{sender.remote_address.inspect} -> '#{msg.inspect}'" }
-        handler = @handlers.find { |h| h.handles? msg } || next
+        service = @services.find { |s| s.handles? msg } || next
         @state_lock.synchronize do
-          handle(handler, msg, sender, &block)
+          handle(service, msg, sender, &block)
         end
       end
       nil
@@ -67,15 +67,15 @@ module ADAM6050
 
     # @yield see #abort_state_change?
     #
-    # @param  handler [Handler] the handler selected to handle the message.
+    # @param  service [Service] the service selected to handle the message.
     # @param  msg [String] the received message.
     # @param  sender [UDPSource] the UDP client.
     # @param  block [Proc]
     # @return [nil]
-    def handle(handler, msg, sender, &block)
-      @session.validate! sender if handler.validate?
+    def handle(service, msg, sender, &block)
+      @session.validate! sender if service.validate?
 
-      next_state, reply = handler.handle msg, @state, @session, sender
+      next_state, reply = service.handle msg, @state, @session, sender
 
       return if abort_state_change?(next_state, &block)
       @state = next_state

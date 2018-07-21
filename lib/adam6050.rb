@@ -8,11 +8,11 @@ require 'adam6050/password'
 require 'adam6050/session'
 require 'adam6050/state'
 
-require 'adam6050/handler'
-require 'adam6050/handler/login'
-require 'adam6050/handler/read'
-require 'adam6050/handler/status'
-require 'adam6050/handler/write'
+require 'adam6050/service'
+require 'adam6050/service/login'
+require 'adam6050/service/read'
+require 'adam6050/service/status'
+require 'adam6050/service/write'
 
 require 'adam6050/server'
 

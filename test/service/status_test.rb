@@ -2,8 +2,8 @@
 
 require 'test_helper'
 
-describe ADAM6050::Handler::Status do
-  subject { ADAM6050::Handler::Status }
+describe ADAM6050::Service::Status do
+  subject { ADAM6050::Service::Status }
 
   let(:handler)       { subject.new }
   let(:initial_state) { ADAM6050::State.initial }

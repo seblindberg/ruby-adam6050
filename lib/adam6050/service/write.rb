@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ADAM6050
-  module Handler
+  module Service
     # Allows registed senders to change the output bits of the state.
     #
     # From the manual:
@@ -16,9 +16,9 @@ module ADAM6050
     #               is 1, second character indicates channel number which can
     #               range from 0h to Fh.
     class Write
-      include Handler
+      include Service
 
-      # @return [String] see Handler::MESSAGE_PREAMBLE.
+      # @return [String] see Service::MESSAGE_PREAMBLE.
       MESSAGE_PREAMBLE = '#01'
 
       # @param  msg [String] the incomming message.

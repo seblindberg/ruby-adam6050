@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module ADAM6050
-  module Handler
+  module Service
     # Allows registed senders to read the state.
     #
     # From the manual:
@@ -18,9 +18,9 @@ module ADAM6050
     #       examples out there that also include the output.
     #
     class Read
-      include Handler
+      include Service
 
-      # @return [String] see Handler::MESSAGE_PREAMBLE.
+      # @return [String] see Service::MESSAGE_PREAMBLE.
       MESSAGE_PREAMBLE = '$016'
 
       # @param  state [Integer] the current state.

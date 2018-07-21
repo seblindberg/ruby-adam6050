@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
 module ADAM6050
-  module Handler
+  module Service
     # Allows senders to login.
     #
     # I have so far not been able to find any documentation around this feature.
     # It is therefore almost certain that the response in case of an incorrect
     # password is wrong.
     class Login
-      include Handler
+      include Service
 
-      # @return [String] see Handler::MESSAGE_PREAMBLE.
+      # @return [String] see Service::MESSAGE_PREAMBLE.
       MESSAGE_PREAMBLE = '$01PW'
 
       # @param  password [String] the plain text password to use when validating
